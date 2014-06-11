@@ -1,0 +1,128 @@
+
+<div ng-controller="goalsController">
+	<div class="row">	
+		<div class="col-xs-3"></div>
+		<div class="col-xs-9">
+			<h1>Goals <small ng-if="remaining()"> ({{ remaining() }}/{{goals.length}})</small></h1>
+		</div>
+	</div>
+	
+	<br>
+	
+	<div class="row">		
+		<div class="col-xs-3"></div>
+  		<div class="col-xs-2">
+  			<div class="form-group">	    	
+	    		<input type="text" ng-model="search" class="form-control" placeholder="Search">
+	  		</div>  			
+  		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3"></div>
+		<div class="col-xs-6">
+			<div class="table-responsive">
+				<table width="100%" class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Goal</th>
+							<th>Due Date</th>
+							<th>Actionables</th>											
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="goal in goals | filter:search | orderBy:'completed'">
+							<td editable-text="goal.title"
+								onbeforesave="checkTitle($data)"
+								onaftersave="updateGoal(goal)">
+							    {{ goal.title }}
+							</td>							
+							<td editable-date="goal.due_date"
+								onbeforesave="checkDueDate($data)"
+								onaftersave="updateGoal(goal)">
+								{{ goal.due_date }}
+							</td>
+							<td>
+								<span editable-number="goal.actionable_completed"
+									  onbeforesave="checkActionableCompleted($data)"
+									  onaftersave="updateGoal(goal)">
+									  {{ goal.actionable_completed }}
+								</span>
+								/
+								<span editable-number="goal.actionable_total"
+									  onbeforesave="checkActionableTotal($data)"
+									  onaftersave="updateGoal(goal)">
+									  {{ goal.actionable_total }}
+								</span>
+							</td>							
+							<td>
+								<button type="button" class="btn btn-danger" ng-click="deleteGoal(goal)"> <i class="fa fa-trash-o"></i> </button>
+							</td>
+
+							<!-- i want to show > if !complete and not pushed, << if pushed & !complete, a Check if completed -->
+							<td>	
+								<!-- <goal-status></goal-status>	 -->											
+								<button ng-show="statusIsCompleted(goal)" type="button" class="btn btn-success" disabled="disabled">
+									<i class="fa fa-check"></i>
+								</button>
+								<!-- <button ng-show="!goal.completed && goal.pushed" type="button" class="btn btn-success" ng-click="pushGoal(goal)"> -->
+								<button ng-show="statusIsNotCompletedAndPushed(goal)" type="button" class="btn btn-info" ng-click="pushGoal(goal)">
+									<i class="fa fa-chevron-left"></i>
+								</button>	
+								<button ng-show="statusIsNotCompletedAndNotPushed(goal)" type="button" class="btn btn-info" ng-click="pushGoal(goal)">
+									<i class="fa fa-chevron-right"></i>
+								</button>							
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-xs-3"></div>
+	</div>
+
+	<br>
+	
+	<div class="row">
+		<div class="col-xs-3"></div>
+		<div class="col-xs-6">
+			<form class="form-inline" role="form" ng-submit="createGoal()">
+				<div class="form-group">
+					<!-- <label for="goal_title">Goal Title</label> -->
+				    <input type="text" class="form-control" id="goal_title" ng-model="new_goal_title" placeholder="Enter Goal">
+				</div>
+				<div class="form-group">
+				    <!-- <label for="goal_due_date">Due Date</label> -->
+				    <input type="text" class="form-control" id="new_goal_actionable_total" ng-model="new_goal_actionable_total" placeholder="Times to complete">
+				</div>
+				<div class="form-group">					   				       
+	                <input 
+	                	   type="text" 
+	                	   id="goal_due_date" 
+	                	   ng-model="new_goal_due_date" 
+	                	   placeholder="2014-03-23"
+	               		   class="form-control" 
+	              		   datepicker-popup="{{format}}" 			              		   
+	              		   is-open="opened" 
+	              		   min="minDate" 
+	              		   max="'2017-06-22'" 
+	              		   date-disabled="disabled(date, mode)" 
+	              		   ng-required="false" 
+	              		   close-text="Close" />				            				          			       
+				</div>		
+				<br><br>							
+				<button type="submit" class="btn btn-default">Submit</button>				
+			</form>
+		</div>
+		<div class="col-xs-3"></div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-xs-3"></div>
+		<div class="col-xs-4">			
+			<?php echo Session::get('email'); ?>
+		</div>		
+	</div>			
+</div>

@@ -1,4 +1,4 @@
-MoleskinApp.directive('goalStatus', function () {
+F3ScriptsApp.directive('goalStatus', function () {
     
     goalStatus = {
     	

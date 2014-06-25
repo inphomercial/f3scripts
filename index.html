@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="MoleskinApp">
+<html lang="en" ng-app="F3ScriptsApp">
 <head>
-    <title>MoleSkin</title>
+    <title>F3ScriptsApp</title>
 
-  	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css">    
+  	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/vendor/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/xeditable.css"> 
-    <link rel="stylesheet" type="text/css" href="css/vendor/bootwatch.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/xeditable.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/bootwatchlumen.min.css">
     <link rel="stylesheet" type="text/css" href="css/vendor/alertify.core.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/alertify.default.css">    
-    <link rel="stylesheet" type="text/css" href="css/main.css">    
+    <link rel="stylesheet" type="text/css" href="css/vendor/alertify.default.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
      <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -22,35 +22,25 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </div>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#login"><i class="fa fa-home"></i> Login</a></li>
-                <li><a href="#todos"><i class="fa fa-check-square"></i> Todos</a></li>
-                <li><a href="#goals"><i class="fa fa-list fa-rotate-180"></i> Goals</a></li>
-                <li><a href="#changelog"><i class="fa fa-info"></i> Changelog</a></li>             
-                <li><a ng-controller="usersController" href="#" ng-click="logout()">Log Out</a></li>
+                <li><a href="#cashflow"><i class="fa fa-home"></i> Cash Flow Analysis</a></li>
             </ul>
         </div>
     </div>
- 
-    <br><br><br>
-  
+
     <div class="container" class="row">
         <div class="col-xs-12">
 	       <div ng-view></div>
         </div>
     </div>
 
-    <br><br>
-
     <!-- Source Venders -->
-    <script type="text/javascript" src="js/Vendor/angular.min.js"></script>    
+    <script type="text/javascript" src="js/Vendor/angular.min.js"></script>
     <script type="text/javascript" src="js/Vendor/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/Vendor/moment.js"></script>         
+    <script type="text/javascript" src="js/Vendor/moment.js"></script>
     <script type="text/javascript" src="js/Vendor/jquery-2-1-0.min.js"></script>
     <script type="text/javascript" src="js/Vendor/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/Vendor/angular-local-storage.min.js"></script>
@@ -59,23 +49,17 @@
     <script type="text/javascript" src="js/Vendor/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 
     <!-- Source MoleskinApp -->
-    <script type="text/javascript" src="js/Apps/moleskin.js"></script>
+    <script type="text/javascript" src="js/Apps/f3scripts.js"></script>
 
     <!-- Source Services -->
-    <script type="text/javascript" src="js/Services/users_service.js"></script>
-    <script type="text/javascript" src="js/Services/dates_service.js"></script>
-    <script type="text/javascript" src="js/Services/goals_service.js"></script>
-    <script type="text/javascript" src="js/Services/todos_service.js"></script>
-   
+    <script type="text/javascript" src="js/Services/calculation_service.js"></script>
+
     <!-- Source Controllers -->
-    <script type="text/javascript" src="js/Controllers/goals_controller.js"></script>
-    <script type="text/JavaScript" src="js/Controllers/goals_pushed_controller.js"></script>
-    <script type="text/javascript" src="js/Controllers/todos_controller.js"></script>
-    <script type="text/javascript" src="js/Controllers/users_controller.js"></script>
+    <script type="text/javascript" src="js/Controllers/cashflow_controller.js"></script>
 
     <!-- Source Directives -->
     <script type="text/javascript" src="js/Directives/goal_status_directive.js"></script>
-   
+
     <!-- Source Routes -->
     <script type="text/javascript" src="js/Routes/routes.js"></script>
 

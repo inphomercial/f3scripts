@@ -1,23 +1,11 @@
-MoleskinApp.config(['$routeProvider', function($routeProvider) 
+F3ScriptsApp.config(['$routeProvider', function($routeProvider)
 {
     $routeProvider
-      .when('/login', {        
-        templateUrl: 'views/login.html'
-      })    
-      .when('/logout', {
-        templateUrl: 'views/login.html'
-      })
-      .when('/goals', {
-        templateUrl: 'views/goals.html'
-      })
-      .when('/todos', {
-        templateUrl: 'views/todos.html'
-      })
-      .when('/changelog', {
-        templateUrl: 'views/changelog.html'
+      .when('/cashflow', {
+        templateUrl: 'views/cashflow.html'
       })
       .otherwise({
-        templateUrl: 'views/login.html'
+        templateUrl: 'views/cashflow.html'
         /*redirectTo: 'views/login.html'*/
       });
   }]);

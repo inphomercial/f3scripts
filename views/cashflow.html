@@ -1,0 +1,236 @@
+
+<div ng-controller="cashflowController">
+	<br><br><br>
+	<h2>Cash Flow Analysis</h2>
+	<div class="row">
+	    <div class="col-xs-4">
+		    <label class="font-small">Total Funding</label>
+		    <div class="input-group input-group-sm input-small">
+  				<span class="input-group-addon">$</span>
+  				<input type="text" class="form-control" ng-model="total_business_funding" ng-blur="checkEmpty(total_business_funding)">
+			</div>
+			<br>
+			<label class="font-small">Up-Front Fee for Business Funding</label>
+		    <div class="input-group input-group-sm input-small">
+  				<span class="input-group-addon">$</span>
+  				<input type="text" class="form-control" ng-model="up_front_fees">
+			</div>
+			<br>
+			<label class="font-small">Back-End Fees for Business Funding</label>
+		    <div class="input-group input-group-sm input-small">
+  				<span class="input-group-addon">$</span>
+  				<input type="text" class="form-control" ng-model="back_end_fees">
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+		    <label class="font-small">Amount of Funding Reserved for Getting Additional Funding</label>
+		    <div class="input-group input-group-sm input-small">
+  				<span class="input-group-addon">$</span>
+  				<input type="text" class="form-control" ng-model="amount_of_funding">
+			</div>
+			<br>
+			<label class="font-small">Interest Reserve (Monthly Payment Reserve) as % Funding</label>
+		    <div class="input-group input-group-sm input-small">
+  				<input type="text" class="form-control" ng-model="interest_reserve">
+  				<span class="input-group-addon">%</span>
+			</div>
+			<br>
+			<label class="font-small">Variable Interest Rate on LOC</label>
+		    <div class="input-group input-group-sm input-small">
+  				<input type="text" class="form-control" ng-model="variable_interest_rate_loc">
+  				<span class="input-group-addon">%</span>
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<label class="font-small">Loan Amortization Terms</label>
+		    <div class="input-group input-group-sm input-small">
+  				<span class="input-group-addon">Years</span>
+  				<input type="text" class="form-control" ng-model="loan_amortization">
+			</div>
+		</div>
+	</div>
+
+	<br><hr><br>
+
+	<div class="row">
+		<div class="col-xs-5">
+			<ul class="list-group">
+			  <li class="list-group-item">
+			    <span class="badge">${{ total_business_funding }}</span>
+			    <strong>Total Funding</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ up_front_fees }}</span>
+			    <strong>Up-Front Fees</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ back_end_fees }}</span>
+			    <strong>Back-End Fees</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ amount_of_funding }}</span>
+			    <strong>Getting Additional No PG Funding</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ netFundingAmount() }}</span>
+			    <strong>Net Funding Amount</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">{{ interestReserve() }}</span>
+			    <strong>Interest Reserve</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ amountInvestedInManagedAccounts() }}</span>
+			    <strong>Amount Invested In Managed Accounts</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">{{ variableInterestRate() }}%</span>
+			    <strong>Variable Interest Rate on LOC</strong>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">{{ monthlyPayments() }}</span>
+			    <strong>Monthly Payments</strong>
+			  </li>
+			</ul>
+		</div>
+		<div class="col-xs-1"></div>
+		<div class="col-xs-5">
+			<ul class="list-group">
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthsOfPaymentsReserved() }}</span>
+			    Number of Months of Payments Reserved
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">{{ effectiveMonthlyCostOfCapital() }}%</span>
+			    Effective Monthly Cost of Capital
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(3) }}</span>
+			    Monthly Net P/L Assuming 3% Net Return
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(4) }}</span>
+			    Monthly Net P/L Assuming 4% Net Return
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(5) }}</span>
+			    Monthly Net P/L Assuming 5% Net Return
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(6) }}</span>
+			    Monthly Net P/L Assuming 6% Net Return
+			  </li>
+			   <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(8) }}</span>
+			    Monthly Net P/L Assuming 8% Net Return
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">${{ monthlyNetPL(10) }}</span>
+			    Monthly Net P/L Assuming 10% Net Return
+			  </li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- <div class="row">
+		<div class="col-xs-12">
+		    <div class="table-responsive">
+				<table width="100%" class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Total Funding</th>
+							<th>Up-Front Fees</th>
+							<th>Back-End Fees</th>
+							<th>Getting Additional NoPG Funding</th>
+							<th>Net Funding Amount</th>
+							<th>Interest Reserve</th>
+							<th>Amount Invested In Managed Accounts</th>
+							<th>Variable Interest Rate on LOC</th>
+							<th>Monthly Payments</th>
+							<th># Months of Payments Reserved</th>
+							<th>Effective Monthly Cost of Capital</th>
+							<th>Monthly Net P/L Assuming 3% Net Return</th>
+							<th>Monthly Net P/L Assuming 4% Net Return</th>
+							<th>Monthly Net P/L Assuming 5% Net Return</th>
+							<th>Monthly Net P/L Assuming 6% Net Return</th>
+							<th>Monthly Net P/L Assuming 8% Net Return</th>
+							<th>Monthly Net P/L Assuming 10% Net Return</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+							    ${{ total_business_funding }}
+							</td>
+							<td>
+							    ${{ up_front_fees }}
+							</td>
+							<td>
+							    ${{ back_end_fees }}
+							</td>
+							<td>
+								${{ amount_of_funding }}
+							</td>
+							<td>
+								${{ netFundingAmount() }}
+							</td>
+							<td>
+								{{ interestReserve() }}
+							</td>
+							<td>
+								${{ amountInvestedInManagedAccounts() }}
+							</td>
+							<td>
+								{{ variableInterestRate() }}%
+							</td>
+							<td>
+								{{ monthlyPayments() }}
+							</td>
+							<td>
+								{{ monthsOfPaymentsReserved() }}
+							</td>
+							<td>
+								{{ effectiveMonthlyCostOfCapital() }}%
+							</td>
+							<td>
+								{{ monthlyNetPL(3) }}
+							</td>
+							<td>
+								{{ monthlyNetPL(4) }}
+							</td>
+							<td>
+								{{ monthlyNetPL(5) }}
+							</td>
+							<td>
+								{{ monthlyNetPL(6) }}
+							</td>
+							<td>
+								{{ monthlyNetPL(8) }}
+							</td>
+							<td>
+								{{ monthlyNetPL(10) }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-xs-12 font-smallest">
+			<br><br><br><br>
+			<p>Legal Disclaimer: The Financial Freedom Foundation is not a United States Securities Dealer, Broker, US Investment Advise, or Law Firm
+			and does not offer legal advice nor investment advice. Forex, futures, stock, and options trading are not appropriate for everyone.
+			Trading and investing in the stock, Forex, futures, and options markets have large potential rewards. However, there is also a substantial risk
+			of loss associated with trading these markets. Losses can and will occur. You are solely responsible for any losses as a result of trading.
+			Never put your money on the line without an understanding of what you are doing, and why you are doing it, based on your own personal
+			knowledge and experience. Results, depicted above are unique to the user. Your personal results will vary. You could make more, less, or
+			even lose money. No system or methodology has ever been developed that can guarantee profits. No representation or implication is being made
+			that using the information will generate profits or ensure freedom from losses. Traders should consult their own financial advisers regarding
+			any securities transaction, and be responsible for their own investment decisions.</p>
+		</div>
+	</div>
+</div>

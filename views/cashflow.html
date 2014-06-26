@@ -5,19 +5,19 @@
 	<div class="row">
 	    <div class="col-xs-4">
 		    <label class="font-small">Total Funding</label>
-		    <div class="input-group input-group-sm input-small">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[total_business_funding_empty]">
   				<span class="input-group-addon">$</span>
   				<input type="text" class="form-control" ng-model="total_business_funding" ng-blur="checkEmpty(total_business_funding)">
 			</div>
 			<br>
 			<label class="font-small">Up-Front Fee for Business Funding</label>
-		    <div class="input-group input-group-sm input-small">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[up_front_fees_empty]">
   				<span class="input-group-addon">$</span>
   				<input type="text" class="form-control" ng-model="up_front_fees">
 			</div>
 			<br>
 			<label class="font-small">Back-End Fees for Business Funding</label>
-		    <div class="input-group input-group-sm input-small">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[back_end_fees_empty]">
   				<span class="input-group-addon">$</span>
   				<input type="text" class="form-control" ng-model="back_end_fees">
 			</div>
@@ -25,27 +25,27 @@
 
 		<div class="col-xs-4">
 		    <label class="font-small">Amount of Funding Reserved for Getting Additional Funding</label>
-		    <div class="input-group input-group-sm input-small">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[amount_of_funding_empty]">
   				<span class="input-group-addon">$</span>
   				<input type="text" class="form-control" ng-model="amount_of_funding">
 			</div>
 			<br>
 			<label class="font-small">Interest Reserve (Monthly Payment Reserve) as % Funding</label>
-		    <div class="input-group input-group-sm input-small">
-  				<input type="text" class="form-control" ng-model="interest_reserve">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[interest_reserve_empty]">
+  				<input type="text" class="form-control" ng-model="interest_reserve" ng-blur="interestReserveCheckIfWhole()">
   				<span class="input-group-addon">%</span>
 			</div>
 			<br>
 			<label class="font-small">Variable Interest Rate on LOC</label>
-		    <div class="input-group input-group-sm input-small">
-  				<input type="text" class="form-control" ng-model="variable_interest_rate_loc">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[variable_interest_rate_loc_empty]">
+  				<input type="text" class="form-control" ng-model="variable_interest_rate_loc" ng-blur="variableInterestRateCheckIfWhole()">
   				<span class="input-group-addon">%</span>
 			</div>
 		</div>
 
 		<div class="col-xs-4">
 			<label class="font-small">Loan Amortization Terms</label>
-		    <div class="input-group input-group-sm input-small">
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[loan_amortization_empty]">
   				<span class="input-group-addon">Years</span>
   				<input type="text" class="form-control" ng-model="loan_amortization">
 			</div>
@@ -58,31 +58,31 @@
 		<div class="col-xs-5">
 			<ul class="list-group">
 			  <li class="list-group-item">
-			    <span class="badge">${{ total_business_funding }}</span>
+			    <span class="badge">${{ total_business_funding | number }}</span>
 			    <strong>Total Funding</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ up_front_fees }}</span>
+			    <span class="badge">${{ up_front_fees | number }}</span>
 			    <strong>Up-Front Fees</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ back_end_fees }}</span>
+			    <span class="badge">${{ back_end_fees | number }}</span>
 			    <strong>Back-End Fees</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ amount_of_funding }}</span>
+			    <span class="badge">${{ amount_of_funding | number }}</span>
 			    <strong>Getting Additional No PG Funding</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ netFundingAmount() }}</span>
+			    <span class="badge">${{ netFundingAmount() | number }}</span>
 			    <strong>Net Funding Amount</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">{{ interestReserve() }}</span>
+			    <span class="badge">{{ interestReserve() | number }}</span>
 			    <strong>Interest Reserve</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ amountInvestedInManagedAccounts() }}</span>
+			    <span class="badge">${{ amountInvestedInManagedAccounts() | number }}</span>
 			    <strong>Amount Invested In Managed Accounts</strong>
 			  </li>
 			  <li class="list-group-item">
@@ -99,36 +99,36 @@
 		<div class="col-xs-5">
 			<ul class="list-group">
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthsOfPaymentsReserved() }}</span>
-			    Number of Months of Payments Reserved
+			    <span class="badge">${{ monthsOfPaymentsReserved() | number }}</span>
+			    <strong>Number of Months of Payments Reserved</strong>
 			  </li>
 			  <li class="list-group-item">
 			    <span class="badge">{{ effectiveMonthlyCostOfCapital() }}%</span>
-			    Effective Monthly Cost of Capital
+			    <strong>Effective Monthly Cost of Capital</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(3) }}</span>
-			    Monthly Net P/L Assuming 3% Net Return
+			    <span class="badge">${{ monthlyNetPL(3) | number }}</span>
+			    <strong>Monthly Net P/L Assuming 3% Net Return</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(4) }}</span>
-			    Monthly Net P/L Assuming 4% Net Return
+			    <span class="badge">${{ monthlyNetPL(4) | number }}</span>
+			    <strong>Monthly Net P/L Assuming 4% Net Return</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(5) }}</span>
-			    Monthly Net P/L Assuming 5% Net Return
+			    <span class="badge">${{ monthlyNetPL(5) | number }}</span>
+			    <strong>Monthly Net P/L Assuming 5% Net Return</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(6) }}</span>
-			    Monthly Net P/L Assuming 6% Net Return
+			    <span class="badge">${{ monthlyNetPL(6) | number }}</span>
+			    <strong>Monthly Net P/L Assuming 6% Net Return</strong>
 			  </li>
 			   <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(8) }}</span>
-			    Monthly Net P/L Assuming 8% Net Return
+			    <span class="badge">${{ monthlyNetPL(8) | number }}</span>
+			    <strong>Monthly Net P/L Assuming 8% Net Return</strong>
 			  </li>
 			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(10) }}</span>
-			    Monthly Net P/L Assuming 10% Net Return
+			    <span class="badge">${{ monthlyNetPL(10) | number}}</span>
+			    <strong>Monthly Net P/L Assuming 10% Net Return</strong>
 			  </li>
 			</ul>
 		</div>

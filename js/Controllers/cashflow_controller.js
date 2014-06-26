@@ -1,16 +1,28 @@
 F3ScriptsApp.controller('cashflowController', function($scope, CalculationService) {
 
 	$scope.total_business_funding = 100000;
+	$scope.total_business_funding_empty = false;
+
 	$scope.up_front_fees = 2500;
+	$scope.up_front_fees_empty = false;
+
 	$scope.back_end_fees = 0;
+	$scope.back_end_fees_empty = false;
+
 	$scope.amount_of_funding = 0;
-	$scope.interest_reserve = 0;
+	$scope.amount_of_funding_empty = false;
+
+	$scope.interest_reserve = "0.00";
+	$scope.interest_reserve_empty = false;
+
 	$scope.loan_amortization = 8.3;
-	$scope.variable_interest_rate_loc = 5.00;
+	$scope.loan_amortization_empty = false;
+
+	$scope.variable_interest_rate_loc = "5.00";
 
 	$scope.monthlyPayments = function()
 	{
-		var i = ($scope.variable_interest_rate_loc / 100) / 12;
+		var i = (parseFloat($scope.variable_interest_rate_loc) / 100) / 12;
 		var b = $scope.loan_amortization * 12;
 		var c = $scope.total_business_funding;
 
@@ -31,13 +43,25 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 
 	$scope.variableInterestRate = function()
 	{
-		return $scope.trimAfterDecimal($scope.variable_interest_rate_loc, 2);
+		return $scope.trimAfterDecimal(parseFloat($scope.variable_interest_rate_loc), 2);
 	}
 
 	$scope.interestReserve = function()
 	{
-		return $scope.trimAfterDecimal($scope.total_business_funding * $scope.interest_reserve, 2);
+		var result = $scope.total_business_funding * $scope.interest_reserve;
+		//var to_decimal = result.toFixed(2);
+
+		return $scope.trimAfterDecimal(result, 2);
+
+		//return $scope.trimAfterDecimal($scope.total_business_funding * $scope.interest_reserve, 2);
 	}
+
+	/*$scope.onChangeInterestReserve = function()
+	{
+		console.log($scope.interest_reserve);
+
+		$scope.interest_reserve.toFixed(2);
+	}*/
 
 	$scope.monthsOfPaymentsReserved = function()
 	{
@@ -76,57 +100,107 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 	// Watches to prevent blank text fields
 	$scope.$watch('total_business_funding', function()
 	{
-		if($scope.total_business_funding == "")
+		if($scope.total_business_funding.length == 0)
 		{
-			$scope.total_business_funding = 0;
+			$scope.total_business_funding_empty = true;
+		}
+		else
+		{
+			$scope.total_business_funding_empty = false;
 		}
 	});
 
 	$scope.$watch('up_front_fees', function()
 	{
-		if($scope.up_front_fees == "")
+		if($scope.up_front_fees.length == 0)
 		{
-			$scope.up_front_fees = 0;
+			$scope.up_front_fees_empty = true;
+		}
+		else
+		{
+			$scope.up_front_fees_empty = false;
 		}
 	});
 
 	$scope.$watch('back_end_fees', function()
 	{
-		if($scope.back_end_fees == "")
+		if($scope.back_end_fees.length == 0)
 		{
-			$scope.back_end_fees = 0;
+			$scope.back_end_fees_empty = true;
+		}
+		else
+		{
+			$scope.back_end_fees_empty = false;
 		}
 	});
 
 	$scope.$watch('amount_of_funding', function()
 	{
-		if($scope.amount_of_funding == "")
+		if($scope.amount_of_funding.length == 0)
 		{
-			$scope.amount_of_funding = 0;
+			$scope.amount_of_funding_empty = true;
+		}
+		else
+		{
+			$scope.amount_of_funding_empty = false;
 		}
 	});
 
-	$scope.$watch('interest_reserve', function()
+	$scope.$watch('interest_reserve', function(new_val)
 	{
-		if($scope.interest_reserve == "")
+		if($scope.interest_reserve.length == 0)
 		{
-			$scope.interest_reserve = 0;
+			$scope.interest_reserve_empty = true;
+		}
+		else
+		{
+			$scope.interest_reserve_empty = false;
 		}
 	});
+
+	$scope.interestReserveCheckIfWhole = function()
+	{
+		if(!isNaN(parseFloat($scope.interest_reserve)))
+		{
+			if($scope.interest_reserve % 1 === 0)
+			{
+				$scope.interest_reserve = parseInt($scope.interest_reserve).toFixed(2);
+			}
+		}
+	}
 
 	$scope.$watch('loan_amortization', function()
 	{
-		if($scope.loan_amortization == "")
+		if($scope.loan_amortization.length == 0)
 		{
-			$scope.loan_amortization = 0;
+			$scope.loan_amortization_empty = true;
+		}
+		else
+		{
+			$scope.loan_amortization_empty = false;
 		}
 	});
 
 	$scope.$watch('variable_interest_rate_loc', function()
 	{
-		if($scope.variable_interest_rate_loc == "")
+		if($scope.variable_interest_rate_loc.length == 0)
 		{
-			$scope.variable_interest_rate_loc = 0;
+			$scope.variable_interest_rate_loc_empty = true;
+		}
+		else
+		{
+			$scope.variable_interest_rate_loc_empty = false;
 		}
 	});
+
+	$scope.variableInterestRateCheckIfWhole = function()
+	{
+		if(!isNaN(parseFloat($scope.variable_interest_rate_loc)))
+		{
+			if($scope.variable_interest_rate_loc % 1 === 0)
+			{
+				$scope.variable_interest_rate_loc = parseInt($scope.variable_interest_rate_loc).toFixed(2);
+			}
+		}
+	}
 });

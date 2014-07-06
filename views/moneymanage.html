@@ -1,0 +1,249 @@
+
+	<br><br><br>
+
+	<span ng-controller="managementController">
+		<h2>Personal Money Management System <button type="button" class="btn btn-info btn-xs" ng-click="clear()">Clear</button></h2>
+	</span>
+
+	<!-- <div class="row"> -->
+		<!-- <div class="col-xs-8"> -->
+			<div class="panel-group" id="accordion">
+
+				<span ng-controller="incomeController">
+			  		<div class="panel panel-default">
+			    		<div class="panel-heading">
+			      			<h4 class="panel-title">
+			        			<a data-toggle="collapse" data-parent="#accordion" data-target="#cashinflow">
+			          				Cash Inflow (Net Monthly Income <strong>${{ totalIncomes() | number }}</strong>)
+			        			</a>
+			      			</h4>
+			    		</div>
+
+				    	<div id="cashinflow" class="panel-collapse collapse">
+				      		<div class="panel-body">
+
+				      			<!-- Net Earned Income -->
+								<div class="row">
+									<div class="col-xs-2">
+										<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankIncomeField('net')">add</button> Net Earned Income</h5>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="net in income.net">
+
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeIncomeField('net', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="net.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="net in income.net">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="net.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+
+								<br>
+
+								<!-- Passive Earned Income -->
+								<div class="row">
+								    <div class="col-xs-3">
+								    	<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankIncomeField('passive')">add</button> Passive Income</h5>
+								    </div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="passive in income.passive">
+
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeIncomeField('passive', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="passive.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="passive in income.passive">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="passive.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+
+								<br>
+
+								<!-- Misc Earned Income -->
+								<div class="row">
+								    <div class="col-xs-3">
+								    	<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankIncomeField('misc')">add</button> Misc Income</h5>
+								    </div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="misc in income.misc">
+
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeIncomeField('misc', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="misc.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="misc in income.misc">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="misc.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+				      		</div>
+				    	</div>
+			  		</div>
+				 </span> <!-- end of incomeController -->
+
+				<span ng-controller="expenseController">
+			  		<div class="panel panel-default">
+			    		<div class="panel-heading">
+			      			<h4 class="panel-title">
+			        			<a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+			          				Cash Outflow (Total Monthly Living Expenses  <strong>${{ totalExpenses() | number }}</strong>)
+			        			</a>
+			      			</h4>
+			    		</div>
+
+			    		<div id="collapseTwo" class="panel-collapse collapse">
+			      			<div class="panel-body">
+
+			      				<!-- Step #1 Invenstment Capital -
+								<div class="row">
+								    <div class="col-xs-4">
+								    	<h4><span>#1) Move to Investment Account : ${{ calculateStep1() | number }}</span></h4>
+								    </div>
+								</div>
+
+								<!-- Step #2 Charity -->
+								<div class="row">
+								    <div class="col-xs-4">
+								    	<h4><span>#2) GIVE : ${{ calculateStep2() | number }}</span></h4>
+								    </div>
+								</div>
+
+
+			        			<!-- Food Expenses -->
+								<div class="row">
+								    <div class="col-xs-3">
+								    	<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankExpenseField('food')">add</button> Food</h5>
+								    </div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="food in expense.food">
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeExpenseField('food', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="food.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="food in expense.food">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="food.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+
+								<br>
+
+								<!-- Housing Expenses -->
+								<div class="row">
+								    <div class="col-xs-3">
+								    	<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankExpenseField('housing')">add</button> Housing</h5>
+								    </div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="housing in expense.housing">
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeExpenseField('housing', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="housing.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="housing in expense.housing">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="housing.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+
+								<br>
+
+								<!-- Transportation Expenses -->
+								<div class="row">
+								    <div class="col-xs-3">
+								    	<h5><button type="button" class="btn btn-info btn-xs" ng-click="createBlankExpenseField('transportation')">add</button> Transportation</h5>
+								    </div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-2">
+								    	<div ng-repeat="transportation in expense.transportation">
+											<div class="input-group input-group-sm input-small">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-warning btn-xs" ng-click="removeExpenseField('transportation', $index)"><i class="fa fa-trash-o"></i></button>
+												</span>
+								  				<input type="text" class="form-control" ng-model="transportation.title">
+											</div>
+								    	</div>
+									</div>
+									<div class="col-xs-1">
+								    	<div ng-repeat="transportation in expense.transportation">
+
+											<div class="input-group input-group-sm input-small">
+								  				<span class="input-group-addon">$</span>
+								  				<input type="text" class="form-control" ng-model="transportation.amount">
+											</div>
+								    	</div>
+								    </div>
+								</div>
+
+			      			</div>
+			    		</div>
+			  		</div>
+			  	</span> <!-- end of expensesController -->
+		  	</div>
+		<!-- </div> -->
+	<!-- </div> -->
+</div>

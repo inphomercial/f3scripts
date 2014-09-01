@@ -49,6 +49,12 @@
   				<span class="input-group-addon">Years</span>
   				<input type="text" class="form-control" ng-model="loan_amortization">
 			</div>
+			<br>
+			<label class="font-small">Monthly Net P/L Percentage</label>
+		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[pl_percentage_empty]">
+  				<input type="text" class="form-control" ng-model="pl_percentage">
+  				<span class="input-group-addon">%</span>
+			</div>
 		</div>
 	</div>
 
@@ -81,36 +87,36 @@
 			    <span class="badge">{{ interestReserve() | number }}</span>
 			    <strong>Interest Reserve</strong>
 			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">${{ amountInvestedInManagedAccounts() | number }}</span>
-			    <strong>Amount Invested In Managed Accounts</strong>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">{{ variableInterestRate() }}%</span>
-			    <strong>Variable Interest Rate on LOC</strong>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">{{ monthlyPayments() }}</span>
-			    <strong>Monthly Payments</strong>
-			  </li>
 			</ul>
 		</div>
 		<div class="col-xs-1"></div>
 		<div class="col-xs-5">
 			<ul class="list-group">
-			  <li class="list-group-item">
-			    <span class="badge">${{ monthsOfPaymentsReserved() | number }}</span>
-			    <strong>Number of Months of Payments Reserved</strong>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">{{ effectiveMonthlyCostOfCapital() }}%</span>
-			    <strong>Effective Monthly Cost of Capital</strong>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">${{ monthlyNetPL(3) | number }}</span>
-			    <strong>Monthly Net P/L Assuming 3% Net Return</strong>
-			  </li>
-			  <li class="list-group-item">
+				<li class="list-group-item">
+				    <span class="badge">${{ amountInvestedInManagedAccounts() | number }}</span>
+				    <strong>Amount Invested In Managed Accounts</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">{{ variableInterestRate() }}%</span>
+				    <strong>Variable Interest Rate on LOC</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">{{ monthlyPayments() }}</span>
+				    <strong>Monthly Payments</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">${{ monthsOfPaymentsReserved() | number }}</span>
+				    <strong>Number of Months of Payments Reserved</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">{{ effectiveMonthlyCostOfCapital() }}%</span>
+				    <strong>Effective Monthly Cost of Capital</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">${{ monthlyNetPL(pl_percentage) | number }}</span>
+				    <strong>Monthly Net P/L Assuming {{ pl_percentage }}% Net Return</strong>
+			  	</li>
+			  <!-- <li class="list-group-item">
 			    <span class="badge">${{ monthlyNetPL(4) | number }}</span>
 			    <strong>Monthly Net P/L Assuming 4% Net Return</strong>
 			  </li>
@@ -129,7 +135,7 @@
 			  <li class="list-group-item">
 			    <span class="badge">${{ monthlyNetPL(10) | number}}</span>
 			    <strong>Monthly Net P/L Assuming 10% Net Return</strong>
-			  </li>
+			  </li> -->
 			</ul>
 		</div>
 	</div>

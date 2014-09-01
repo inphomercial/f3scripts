@@ -20,6 +20,9 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 
 	$scope.variable_interest_rate_loc = "5.00";
 
+	$scope.pl_percentage = 5;
+	$scope.pl_percentage_empty = false;
+
 	$scope.monthlyPayments = function()
 	{
 		var i = (parseFloat($scope.variable_interest_rate_loc) / 100) / 12;
@@ -145,6 +148,17 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 		else
 		{
 			$scope.interest_reserve_empty = false;
+		}
+	});
+
+	$scope.$watch('pl_percentage', function() {
+		if($scope.pl_percentage == 0)
+		{
+			$scope.pl_percentage_empty = true;
+		}
+		else
+		{
+			$scope.pl_percentage_empty = false;
 		}
 	});
 

@@ -1,6 +1,6 @@
 
 <div ng-controller="cashflowController">
-	<br><br><br>
+	<!-- <br><br> -->
 	<h2>Cash Flow Analysis</h2>
 	<div class="row">
 	    <div class="col-xs-4">
@@ -24,13 +24,13 @@
 		</div>
 
 		<div class="col-xs-4">
-		    <label class="font-small">Amount of Funding Reserved for Getting Additional Funding</label>
+		    <label class="font-small">Amount of Funding Reserved for Additional Funding</label>
 		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[amount_of_funding_empty]">
   				<span class="input-group-addon">$</span>
   				<input type="text" class="form-control" ng-model="amount_of_funding">
 			</div>
 			<br>
-			<label class="font-small">Interest Reserve (Monthly Payment Reserve) as % Funding</label>
+			<label class="font-small">Interest Reserve (Monthly Payment) as % Funding</label>
 		    <div class="input-group input-group-sm input-small" ng-class="{true: 'has-error', false: ''}[interest_reserve_empty]">
   				<input type="text" class="form-control" ng-model="interest_reserve" ng-blur="interestReserveCheckIfWhole()">
   				<span class="input-group-addon">%</span>
@@ -87,16 +87,16 @@
 			    <span class="badge">{{ interestReserve() | number }}</span>
 			    <strong>Interest Reserve</strong>
 			  </li>
+			  <li class="list-group-item">
+				    <span class="badge">${{ amountInvestedInManagedAccounts() | number }}</span>
+				    <strong>Amount Invested In Managed Accounts</strong>
+			  	</li>
 			</ul>
 		</div>
 		<div class="col-xs-1"></div>
 		<div class="col-xs-5">
 			<ul class="list-group">
 				<li class="list-group-item">
-				    <span class="badge">${{ amountInvestedInManagedAccounts() | number }}</span>
-				    <strong>Amount Invested In Managed Accounts</strong>
-			  	</li>
-			  	<li class="list-group-item">
 				    <span class="badge">{{ variableInterestRate() }}%</span>
 				    <strong>Variable Interest Rate on LOC</strong>
 			  	</li>
@@ -115,6 +115,14 @@
 			  	<li class="list-group-item">
 				    <span class="badge">${{ monthlyNetPL(pl_percentage) | number }}</span>
 				    <strong>Monthly Net P/L Assuming {{ pl_percentage }}% Net Return</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">${{ monthlyPrincipalRepayment() | number }}</span>
+				    <strong>Monthly Principal Repayment</strong>
+			  	</li>
+			  	<li class="list-group-item">
+				    <span class="badge">{{ monthsForRepayment() }}</span>
+				    <strong>Months for Repayment of Initial Amount</strong>
 			  	</li>
 			  <!-- <li class="list-group-item">
 			    <span class="badge">${{ monthlyNetPL(4) | number }}</span>

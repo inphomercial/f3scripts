@@ -23,6 +23,22 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 	$scope.pl_percentage = 5;
 	$scope.pl_percentage_empty = false;
 
+	$scope.monthly_princial_repayment = 0;
+
+	$scope.monthsForRepayment = function()
+	{
+		var result = $scope.netFundingAmount() / $scope.monthly_princial_repayment;
+
+		return $scope.trimAfterDecimal(result, 2);
+	}
+
+	$scope.monthlyPrincipalRepayment = function()
+	{
+		$scope.monthly_princial_repayment = $scope.monthlyNetPL($scope.pl_percentage) - $scope.monthlyPayments();
+
+		return $scope.trimAfterDecimal($scope.monthly_princial_repayment, 2);
+	}
+
 	$scope.monthlyPayments = function()
 	{
 		var i = (parseFloat($scope.variable_interest_rate_loc) / 100) / 12;

@@ -74,7 +74,7 @@ F3ScriptsApp.controller('cashflowController', function($scope, CalculationServic
 
 	$scope.monthsOfPaymentsReserved = function()
 	{
-		return $scope.trimAfterDecimal($scope.interestReserve() / $scope.monthlyPayments(), 2);
+		return $scope.trimAfterDecimal($scope.interestReserve() / $scope.monthlyPayments(), 0);
 	}
 
 	$scope.amountInvestedInManagedAccounts = function()
